@@ -1,0 +1,36 @@
+.factoid {
+  margin: 10px;
+  border: 1px dotted black;
+  padding: 10px;
+  font: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+.date {
+  font-weight: bold;
+}
+
+.place {
+  font-style: italic;
+}
+
+.title {
+  color: gray;
+}
+
+.author {
+  color: green;
+}
+
+.publisher {
+  color: darkgreen;
+  font-weight: bold;
+}
+
+.url {
+  color: blue;
+  text-decoration: underline;
+}
+
+
+

@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 
-const Search = ({ setHistory }) => {
-  const [text, setText] = useState('');
+const Search = ({ setHistory, setPage, searchText, setSearchText }) => {
 
   const handleSearchText = (e) => {
-    setText(e.target.value);
+    setSearchText(e.target.value);
   }
 
-  const handleSearchClick = (e) => {
-    fetch(`events?q=${text}`)
+  const handleSearchClick = () => {
+    fetch(`events?q=${searchText}&_page=1`)
       .then(results => results.json())
-      .then(json => setHistory(json));
+      .then(json => setHistory(json))
+      .then(() => setPage(1));
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key == 'Enter') handleSearchClick();
   }
 
   return (
     <div id="search-area">
-      <input type="text" placeholder="Search..." id="searchbar" onChange={handleSearchText} />
+      <input type="text" placeholder="Search..." id="searchbar" onChange={handleSearchText} onKeyPress={handleKeyPress} autoFocus />
       <button type="button" onClick={handleSearchClick}>History!</button>
     </div>
   )
