@@ -18,12 +18,15 @@ const Factoid = ({ date, description, category1, category2 }) => {
     description = description.slice(0, cite.index);
     title = cite[0].match(/\|title.*?\|/);
     title ? (title = title[0].slice(7, -1)) : null;
-    if (title.indexOf('http') > 0) {
+    if (title && title.indexOf('http') > 0) {
       title = null;
     }
     url = cite[0].match(/\|url.*?\|/);
     url ? (url = url[0].slice(5, -1)) : null;
-    url = url.replace('<a href="', '');
+    if (url) {
+      url = url.replace('<a href="', '');
+      url = url.replace(/">.*/g, '');
+    }
     author = cite[0].match(/\|author.*?\|/);
     author ? (author = author[0].slice(8, -1)) : null;
     if (!author) {
@@ -41,7 +44,7 @@ const Factoid = ({ date, description, category1, category2 }) => {
     (publisher || '').replace(' amp ', ' & ');
     source = cite[0].match(/ampamp.*ampamp/);
     source ? (source = source[0].slice(6, -6)) : null;
-    if (source.indexOf('{{cite') > 0) source = null;
+    if (source && source.indexOf('{{cite') > 0) source = null;
     ref = cite[0].match(/ref name=.*/);
     ref ? (ref = ref[0].slice(6, -6)) : null;
   }
@@ -49,14 +52,16 @@ const Factoid = ({ date, description, category1, category2 }) => {
   // remove unit conversions
   description = description.replace(/{{convert\|(\d+)\|(\w+).*?}}/, '$1 $2');
   // remove misformattings
-  description = description.replace(' ampampndash', '–');
-  description = description.replace('ampampndash', '–');
-  description = description.replace('ampndash', '–');
+  description = description.replace(/ ampampndash/g, '–');
+  description = description.replace(/ampampndash/g, '–');
+  description = description.replace(/ampndash/g, '–');
+  description = description.replace(/ampquot/g, '"');
   description = description.replace(/ampamp.*?ampamp/, '');
   description = description.replace(/ref name=.*?/, '');
-  description = description.replace(' amp ', ' & ');
-  description = description.replace('ampamp', '');
-  description = description.replace(/<a href="?/, '');
+  description = description.replace(/ amp /g, ' & ');
+  description = description.replace(/ampamp/g, '');
+  description = description.replace(/<a href="?/g, '');
+  // description = description.replace(/quot([^ea])/g, '"$1')
 
   return (
     <div className="factoid" key={Math.random()}>

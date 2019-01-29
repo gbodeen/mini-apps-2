@@ -1,20 +1,18 @@
 import React from 'react';
+import ReactPaginate from 'react-paginate';
 
-const PageButtons = ({ setHistory, page, setPage, searchText }) => {
+const PageButtons = ({ setHistory, pageCount, searchText }) => {
 
-  const handlePageButtonClick = (change) => {
-    if (page + change > 0) {
-      fetch(`events?q=${searchText}&_page=${page + change}`)
-        .then(results => results.json())
-        .then(json => setHistory(json))
-        .then(() => setPage(page + change));
-    }
+  const handlePageButtonClick = ({ selected }) => {
+    // console.log(selected);
+    fetch(`events?q=${searchText}&_page=${selected + 1}`)
+      .then(results => results.json())
+      .then(json => setHistory(json))
   }
 
   return (
     <div className="page-buttons">
-      <button className="prev page" type="button" onClick={() => handlePageButtonClick(-1)}>Previous Page</button>
-      <button className="next page" type="button" onClick={() => handlePageButtonClick(1)}>Next Page</button>
+      <ReactPaginate pageCount={pageCount} pageRangeDisplayed={5} marginPagesDisplayed={2} onPageChange={handlePageButtonClick} />
     </div>
   )
 }
