@@ -17,12 +17,10 @@ const App = () => {
     }
   }
 
-  useEffect(getPageCount, [history]);
-
   return (
     <>
       <h1>Extremely Important History</h1>
-      <Search setHistory={setHistory} searchText={searchText} setSearchText={setSearchText} />
+      <Search setHistory={setHistory} searchText={searchText} setSearchText={setSearchText} getPageCount={getPageCount} />
       <History history={history} />
       <PageButtons setHistory={setHistory} pageCount={pageCount} searchText={searchText} />
     </>

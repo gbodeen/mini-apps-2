@@ -1,7 +1,7 @@
 module.exports = {
-  entry: __dirname + '/challenge_1/client/app.jsx',
+  entry: __dirname + '/challenge_2/client/app.jsx',
   output: {
-    path: __dirname + '/challenge_1/public/',
+    path: __dirname + '/challenge_2/public/',
     filename: 'app.js'
   },
   module: {

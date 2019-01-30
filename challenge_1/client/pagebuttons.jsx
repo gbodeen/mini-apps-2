@@ -12,7 +12,7 @@ const PageButtons = ({ setHistory, pageCount, searchText }) => {
 
   return (
     <div className="page-buttons">
-      <ReactPaginate pageCount={pageCount} pageRangeDisplayed={5} marginPagesDisplayed={2} onPageChange={handlePageButtonClick} />
+      <ReactPaginate pageCount={pageCount} pageRangeDisplayed={5} marginPagesDisplayed={1} onPageChange={handlePageButtonClick} />
     </div>
   )
 }

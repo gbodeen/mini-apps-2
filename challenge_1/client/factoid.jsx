@@ -13,7 +13,7 @@ const Factoid = ({ date, description, category1, category2 }) => {
   }
 
   let title, url, author, first, last, publisher, source, ref;
-  let cite = description.match(/{{cite.*}}/);
+  let cite = description.match(/{{cite.*/);
   if (cite) {
     description = description.slice(0, cite.index);
     title = cite[0].match(/\|title.*?\|/);
@@ -41,7 +41,9 @@ const Factoid = ({ date, description, category1, category2 }) => {
     }
     publisher = cite[0].match(/\|publisher.*?\|/);
     publisher ? (publisher = publisher[0].slice(11, -1)) : null;
-    (publisher || '').replace(' amp ', ' & ');
+    if (publisher) {
+      publisher = publisher.replace(' amp ', ' & ');
+    }
     source = cite[0].match(/ampamp.*ampamp/);
     source ? (source = source[0].slice(6, -6)) : null;
     if (source && source.indexOf('{{cite') > 0) source = null;
@@ -61,6 +63,7 @@ const Factoid = ({ date, description, category1, category2 }) => {
   description = description.replace(/ amp /g, ' & ');
   description = description.replace(/ampamp/g, '');
   description = description.replace(/<a href="?/g, '');
+  description = description.replace(/">.*>/g, '');
   // description = description.replace(/quot([^ea])/g, '"$1')
 
   return (
