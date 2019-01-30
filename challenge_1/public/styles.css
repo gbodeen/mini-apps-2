@@ -1,9 +1,30 @@
+body {
+  background-image: url('background.jpg');
+  background-attachment: fixed;
+}
+
+h1 {
+  font-family: 'Eagle Lake', cursive;
+  size: 50px;
+  background-image: radial-gradient(rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 50%);
+  padding: 10px 50px;
+  margin: 20px 100px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+.history-section {
+  height: 480px;
+  overflow: scroll;
+}
+
 .factoid {
   margin: 10px;
   border: 1px dotted black;
   padding: 10px;
   font: Arial, Helvetica, sans-serif;
   overflow: hidden;
+  background: rgba(172, 160, 127, 0.8);
 }
 
 .date {
@@ -37,5 +58,13 @@
   padding: 5px;
   border: 2px dotted gray;
   margin: 5px;
+  background: rgba(255, 255, 255, 0.5);
 }
 
+.page-buttons {
+  margin-right: 100px;
+}
+
+#search-area, .page-buttons {
+  text-align: center;
+}
