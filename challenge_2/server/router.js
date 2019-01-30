@@ -3,7 +3,7 @@ const router = express.Router();
 const { valiDate, inOrder } = require('./validation');
 const getBTCinfo = require('./coindeskapi');
 
-router.get('btc/:startDate/:endDate', (req, res) => {
+router.get('/btc/:startDate/:endDate', (req, res) => {
   let startDate = req.params.startDate;
   let endDate = req.params.endDate;
   if (!valiDate(startDate) || !valiDate(endDate)) {
@@ -16,7 +16,7 @@ router.get('btc/:startDate/:endDate', (req, res) => {
     if (err) {
       res.status(500).send('Error retrieving BTC info.');
     } else {
-      res.status(200).send(BTCinfo);
+      res.status(200).json(BTCinfo);
     }
   })
 });

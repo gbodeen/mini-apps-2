@@ -8,9 +8,13 @@ const axios = require('axios');
 
 
 const getBTCinfo = (startDate, endDate, callback) => {
-  let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDate}&end=${endDate}`
+  startDateFormatted = startDate.slice(0, 4) + '-' + startDate.slice(4, 6) + '-' + startDate.slice(6);
+  endDateFormatted = endDate.slice(0, 4) + '-' + endDate.slice(4, 6) + '-' + endDate.slice(6);
+  let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDateFormatted}&end=${endDateFormatted}`
   axios.get(url)
-    .then(response => callback(null, response))
+    .then(response => {
+      callback(null, response.data);
+    })
     .catch(err => callback(err));
 }
 
