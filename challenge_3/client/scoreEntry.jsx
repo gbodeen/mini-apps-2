@@ -11,7 +11,7 @@ class ScoreEntry extends React.Component {
   handleNewGameClick = this.props.resetGame;
 
   handleNumClick = (e) => {
-    this.setState({ hit: e.target.innerText });
+    this.setState({ hit: parseInt(e.target.innerText) });
   }
 
   handleConfirmClick = () => {
@@ -27,7 +27,7 @@ class ScoreEntry extends React.Component {
   render() {
     const { gameOn } = this.props;
 
-    if (gameOn()) {
+    if (gameOn) {
       return (
         <div className="score-pad">
           <div className="row row-0">
