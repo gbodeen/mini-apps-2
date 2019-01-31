@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "start1": "json-server --watch challenge_1/data/db.json --static challenge_1/public",
-    "start2": "nodemon challenge_2/server/server.js"
+    "start2": "nodemon challenge_2/server/server.js",
+    "start3": "nodemon challenge_3/server/server.js"
   },
   "repository": {
     "type": "git",
