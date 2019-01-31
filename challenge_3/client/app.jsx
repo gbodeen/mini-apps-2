@@ -6,19 +6,23 @@ import ScoreEntry from './scoreEntry.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.initialState = {
       pins: [],
       frames: [[], [], [], [], [], [], [], [], [], []],
-      gameOn: true
+      gameOn: true,
+      score: 0
+    }
+    this.state = {
     }
   }
 
   markPins = (n) => {
     const pins = [].concat(this.state.pins, n);
-    this.setState({ pins }, () => this.fillFrames(pins));
+    this.setState({ pins }, this.fillFrames);
   }
 
-  fillFrames = (pins) => {
+  fillFrames = () => {
+    const pins = this.state.pins;
     const frames = [[], [], [], [], [], [], [], [], [], []];
 
     let f = 0, t = 0;
@@ -39,10 +43,8 @@ class App extends React.Component {
         } else if (frames[9].length === 2) {
           if (frames[9][1] === 10 || frames[9][0] + frames[9][1] === 10) {
             frames[9][2] = pin;
-          } else if (frames[9][1] + pin > 10) {
-            frames[9][2] = 10 - frames[9][1];
           } else {
-            frames[9][2] = pin;
+            frames[9][2] = Math.min(pin, 10 - frames[f][1]);
           }
           this.gameOver();
           break;
@@ -54,19 +56,38 @@ class App extends React.Component {
         } else if (t === 0) {
           frames[f][0] = pin;
           t = 1;
-        } else if (frames[f][0] + pin > 10) {
-          frames[f][1] = 10 - frames[f][0];
-          t = 0;
-          f++;
         } else {
-          frames[f][1] = pin;
+          frames[f][1] = Math.min(pin, 10 - frames[f][0]);
           t = 0;
           f++;
         }
       }
     }
 
-    this.setState({ frames });
+    this.setState({ frames }, this.calculateScore);
+  }
+
+  calculateScore = () => {
+    let pinsSeen = 0;
+    let score = 0;
+    const pins = this.state.pins;
+    const frames = this.state.frames;
+    for (let i = 0; i < 10; i++) {
+      if (frames[i][0] === 10) {
+        pinsSeen++;
+        score += 10 + (pins[pinsSeen] || 0) + (pins[pinsSeen + 1] || 0);
+      } else if (frames[i][1] && frames[i][0] + frames[i][1] === 10) {
+        pinsSeen += 2;
+        score += 10 + (pins[pinsSeen] || 0);
+      } else if (frames[i][1]) {
+        score += frames[i][0] + frames[i][1];
+        pinsSeen += 2;
+      } else if (frames[i][0]) {
+        score += frames[i][0];
+        pinsSeen++;
+      }
+    }
+    this.setState({ score });
   }
 
   gameOver = () => {
@@ -74,14 +95,18 @@ class App extends React.Component {
   }
 
   resetGame = () => {
-    this.setState({ pins: [], gameOn: true });
+    this.setState(this.initialState);
+  }
+
+  componentDidMount() {
+    this.setState(this.initialState);
   }
 
   render() {
     return (
       <>
-        <FrameDisplay frames={this.state.frames} />
-        <ScoreEntry gameOn={this.state.gameOn} markPins={this.markPins} gameOver={this.gameOver} resetGame={this.resetGame} />
+        <FrameDisplay frames={this.state.frames} score={this.state.score} />
+        <ScoreEntry gameOn={this.state.gameOn} markPins={this.markPins} resetGame={this.resetGame} />
       </>
     )
   }
