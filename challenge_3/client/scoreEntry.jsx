@@ -20,13 +20,14 @@ class ScoreEntry extends React.Component {
     if (hit !== null) {
       markPins(hit);
     }
+    this.setState({ hit: null });
   }
 
 
   render() {
     const { gameOn } = this.props;
 
-    if (gameOn) {
+    if (gameOn()) {
       return (
         <div className="score-pad">
           <div className="row row-0">
