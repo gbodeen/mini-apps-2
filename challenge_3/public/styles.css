@@ -1,0 +1,36 @@
+body {
+  size: 18px;
+}
+
+.frame, .score {
+  display: inline-block;
+  border: 1px solid black;
+  margin: 0px;
+  padding: 10px;
+  height: 36px;
+  width: 36px;
+  vertical-align: middle;
+}
+
+.score {
+  margin-left: 18px;
+  color: red;
+}
+
+.button {
+  height: 36px;
+  width: 36px;
+}
+
+.confirm, #button-0, #button-10 {
+  height: 36px;
+  width: 108px;
+}
+
+.score-pad {
+  margin-top: 20px;
+}
+
+button:active {
+  background-color: green;
+}

@@ -13,6 +13,10 @@ class App extends React.Component {
       score: 0
     }
     this.state = {
+      pins: [],
+      frames: [[], [], [], [], [], [], [], [], [], []],
+      gameOn: true,
+      score: 0
     }
   }
 
@@ -95,10 +99,6 @@ class App extends React.Component {
   }
 
   resetGame = () => {
-    this.setState(this.initialState);
-  }
-
-  componentDidMount() {
     this.setState(this.initialState);
   }
 

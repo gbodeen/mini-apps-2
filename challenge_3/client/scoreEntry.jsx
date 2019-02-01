@@ -51,7 +51,7 @@ class ScoreEntry extends React.Component {
           <div className="row row-4">
             <button type="button" className="button" id="button-10" onClick={this.handleNumClick} >10</button>
           </div>
-          <button type="button" className="confirm" onClick={this.handleConfirmClick} >Confirm</button>
+          <button type="button" className="confirm" onClick={this.handleConfirmClick} >Confirm {this.state.hit}</button>
         </div>
       )
     } else {
