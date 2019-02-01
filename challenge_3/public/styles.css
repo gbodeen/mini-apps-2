@@ -12,6 +12,10 @@ body {
   vertical-align: middle;
 }
 
+#frame-9 {
+  width: 54px;
+}
+
 .score {
   margin-left: 18px;
   color: red;

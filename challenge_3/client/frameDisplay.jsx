@@ -6,7 +6,7 @@ const FrameDisplay = ({ frames, score }) => {
     <div className="frame-display">
       {
         frames.map((frame, i) => {
-          return <div className="frame" key={i}>{frame.toString()}</div>
+          return <div className="frame" key={i} id={'frame-' + i}>{frame.toString()}</div>
         })
       }
       <div className="score">{score}</div>
